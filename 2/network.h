@@ -5,6 +5,7 @@
 #include "wind.h"
 #include "computer.h"
 #include "QTest"
+#include "sstream"
 
 class Network
 {
@@ -17,22 +18,52 @@ public:
             net_m[i] = net[i];
         }
     }
-    void run()
+    void run(std::stringstream &chick)
     {
-        while (check())
+        int j = 0;
+        if (!check())
         {
-            for (int i = 0; i < 10; ++i)
+            do
             {
-                for (int j = 0; j < 10; ++j)
+                chick << "New Epoch:" "take " << ++j << std::endl;
+                for (int i = 0; i < 10; ++i)
                 {
-                    if (net_m[i][j])
+                    if (Computers[i]->isInfected())
                     {
-                        if (Computers[i]->isInfected())
-                            Computers[j]->virus();
+                        chick << "Computer # " << i << " is infected";
+                    }
+                    else
+                    {
+                        chick << "Computer # " << i << " isn't' infected";
+                    }
+                    chick << std::endl;
+                }
+                for (int i = 0; i < 10; ++i)
+                {
+                    for (int j = 0; j < 10; ++j)
+                    {
+                        if (net_m[i][j])
+                        {
+                            if (Computers[i]->isInfected())
+                                Computers[j]->virus();
+                        }
                     }
                 }
+                wait();
+            } while (!check());
+        }
+        chick << "New Epoch:" "take " << ++j << std::endl;
+        for (int i = 0; i < 10; ++i)
+        {
+            if (Computers[i]->isInfected())
+            {
+                chick << "Computer # " << i << " is infected";
             }
-        wait();
+            else
+            {
+                chick << "Computer # " << i << " isn't' infected";
+            }
+            chick << std::endl;
         }
     }
     bool check()
@@ -40,7 +71,7 @@ public:
         int k = 0;
         for (int i = 0; i < 10; i++)
         {
-            if (Computers[i])
+            if (Computers[i]->isInfected())
                 k++;
         }
         return (k > 9);

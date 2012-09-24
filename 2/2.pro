@@ -26,4 +26,5 @@ HEADERS += \
     wind.h \
     linux.h \
     network.h \
-    computer.h
+    computer.h \
+    networkTest.h
