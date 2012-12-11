@@ -41,7 +41,7 @@ private slots:
         {
             netw[i] = network_m[i];
         }
-        test = new Network(5, Computers, netw);
+        test = new Network(1, Computers, netw);
     }
     void cleanup()
     {
@@ -53,6 +53,7 @@ private slots:
     }
     void testHalting()
     {
+        srand(1000);
         test->run(kink);
         QVERIFY(true);
     }
