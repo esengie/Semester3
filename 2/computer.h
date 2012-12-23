@@ -10,10 +10,14 @@ class Computer
 {
 public:
     Computer(OS* g, bool state): operate(g), isInfected_m(state) {}
-    void virus()
+    void virus(bool test)
     {
         srand(time(NULL));
         int n = rand() % (NUMELTS + 1);
+        if (test)
+        {
+            n = 200;
+        }
         if (n > operate->get_prob())
         {
             isInfected_m = true;

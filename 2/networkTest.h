@@ -41,7 +41,7 @@ private slots:
         {
             netw[i] = network_m[i];
         }
-        test = new Network(1, Computers, netw);
+        test = new Network(1, Computers, netw, 1);
     }
     void cleanup()
     {

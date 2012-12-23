@@ -10,13 +10,14 @@
 class Network
 {
 public:
-    Network(int waiter, Computer** comp, int* net[10]): wait_m(waiter)
+    Network(int waiter, Computer** comp, int* net[10], bool test = 0): wait_m(waiter)
     {
         Computers = comp;
         for (int i = 0; i < 10; ++i)
         {
             net_m[i] = net[i];
         }
+        test_m = test;
     }
     void run(std::stringstream &chick)
     {
@@ -45,7 +46,7 @@ public:
                         if (net_m[i][j])
                         {
                             if (Computers[i]->isInfected())
-                                Computers[j]->virus();
+                                Computers[j]->virus(test_m);
                         }
                     }
                 }
@@ -85,6 +86,7 @@ private:
     int wait_m;
     Computer** Computers;
     int* net_m[10];
+    bool test_m;
 };
 
 #endif // NETWORK_H
