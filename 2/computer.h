@@ -1,6 +1,6 @@
 #ifndef COMPUTER_H
 #define COMPUTER_H
-#include "cstdlib"
+#include "randInterface.h"
 #include "os.h"
 #include "time.h"
 
@@ -9,15 +9,11 @@ const int NUMELTS = 100;
 class Computer
 {
 public:
-    Computer(OS* g, bool state): operate(g), isInfected_m(state) {}
-    void virus(bool test)
+    Computer(OS* g, bool state, RandInterface* randi): operate(g), isInfected_m(state), rand(randi) {}
+    void virus()
     {
-        srand(time(NULL));
-        int n = rand() % (NUMELTS + 1);
-        if (test)
-        {
-            n = 200;
-        }
+        int n = rand->randi() % (NUMELTS + 1);
+
         if (n > operate->get_prob())
         {
             isInfected_m = true;
@@ -30,7 +26,7 @@ public:
 private:
     OS* operate;
     bool isInfected_m;
-
+    RandInterface* rand;
 };
 
 #endif // COMPUTER_H

@@ -27,4 +27,6 @@ HEADERS += \
     linux.h \
     network.h \
     computer.h \
-    networkTest.h
+    networkTest.h \
+    rand.h \
+    randInterface.h
